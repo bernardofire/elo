@@ -6,7 +6,6 @@ describe "Elo" do
       p = Player.new
       expect(p.rating).to eq(1000)
       expect(p.games).to eq([])
-      expect(p.games_played).to eq(0)
     end
 
     it "beginner" do
