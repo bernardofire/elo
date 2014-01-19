@@ -8,8 +8,12 @@ class Player
     @games = []
   end
 
-  def pro_rating?
-    @rating >= @config.pro_start
+  def beginner?
+    @rating < @config.pro_start
+  end
+
+  def pro?
+    !beginner?
   end
 end
 

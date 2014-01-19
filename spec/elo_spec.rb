@@ -9,13 +9,20 @@ describe "Elo" do
       expect(p.games_played).to eq(0)
     end
 
+    it "beginner" do
+      p = Player.new
+      expect(p.beginner?).to eq(true)
+      p.rating = 2400
+      expect(p.beginner?).to eq(false)
+    end
+
     it 'pro?' do
       p = Player.new
-      expect(p.pro_rating?).to eq(false)
+      expect(p.pro?).to eq(false)
       p.rating = 2400
-      expect(p.pro_rating?).to eq(true)
+      expect(p.pro?).to eq(true)
       p.rating = 2500
-      expect(p.pro_rating?).to eq(true)
+      expect(p.pro?).to eq(true)
     end
   end
 
