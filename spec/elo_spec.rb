@@ -12,7 +12,7 @@ describe "Elo" do
       expect(Player.new.k_factor).to eq(20)
     end
 
-    it 'beginner' do
+    it 'beginner?' do
       p = Player.new
       expect(p.beginner?).to eq(true)
       p.rating = 2400
