@@ -9,4 +9,11 @@ describe "Elo" do
       expect(p.games_played).to eq(0)
     end
   end
+
+  describe Configuration do
+    it 'should create player with default arguments' do
+      c = Configuration.new
+      expect(c.initial_rating).to eq(1200)
+    end
+  end
 end

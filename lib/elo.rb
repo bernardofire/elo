@@ -7,3 +7,10 @@ class Player
     @games = []
   end
 end
+
+class Configuration
+  attr_reader :initial_rating
+  def initialize
+    @initial_rating = 1200
+  end
+end
