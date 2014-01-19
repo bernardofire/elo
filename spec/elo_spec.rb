@@ -8,6 +8,15 @@ describe "Elo" do
       expect(p.games).to eq([])
       expect(p.games_played).to eq(0)
     end
+
+    it 'pro_rating?' do
+      p = Player.new
+      expect(p.pro_rating?).to eq(false)
+      p.rating = 2400
+      expect(p.pro_rating?).to eq(true)
+      p.rating = 2500
+      expect(p.pro_rating?).to eq(true)
+    end
   end
 
   describe Configuration do

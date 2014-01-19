@@ -2,9 +2,14 @@ class Player
   attr_accessor :rating, :games_played, :games
 
   def initialize
-    @rating = Configuration.new.initial_rating
+    @config = Configuration.new
+    @rating = @config.initial_rating
     @games_played = 0
     @games = []
+  end
+
+  def pro_rating?
+    @rating >= @config.pro_start
   end
 end
 
