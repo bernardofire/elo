@@ -12,4 +12,11 @@ class Elo
     f_factor = 2 * @beta
     1.to_f / (1 + 10 ** (diff / f_factor))
   end
+
+  def adjustment(player, score,  opponent)
+    player + @k * (score - expect(player, opponent))
+  end
+
+  #def validate(score)
+  #end
 end
