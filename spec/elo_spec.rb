@@ -9,7 +9,7 @@ describe "Elo" do
       expect(p.games_played).to eq(0)
     end
 
-    it 'pro_rating?' do
+    it 'pro?' do
       p = Player.new
       expect(p.pro_rating?).to eq(false)
       p.rating = 2400
