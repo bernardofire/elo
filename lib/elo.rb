@@ -7,8 +7,8 @@ class Elo
     @beta = beta
   end
 
-  def expect(rate, other_rate)
-    diff = other_rate.to_f - rate.to_f
+  def expect(player, opponent)
+    diff = opponent.to_f - player.to_f
     f_factor = 2 * @beta
     1.to_f / (1 + 10 ** (diff / f_factor))
   end
