@@ -11,7 +11,7 @@ describe "Elo" do
   end
 
   describe Configuration do
-    it 'should create player with default arguments' do
+    it 'should create configuration with default arguments' do
       c = Configuration.new
       expect(c.initial_rating).to eq(1000)
       expect(c.beginner_start).to eq(30)
