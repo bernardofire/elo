@@ -4,7 +4,6 @@ class Player
   def initialize
     @config = Configuration.new
     @rating = @config.initial_rating
-    @games_played = 0
     @games = []
   end
 
@@ -15,10 +14,15 @@ class Player
   def pro?
     !beginner?
   end
+
+  def k_factor
+    @config.k_factor
+  end
 end
 
 class Configuration
-  attr_reader :initial_rating, :beginner_start, :pro_start, :k_factor
+  attr_accessor :initial_rating, :beginner_start, :pro_start, :k_factor
+
   def initialize
     @initial_rating = 1000
     @beginner_start = 30
