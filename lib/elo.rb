@@ -9,7 +9,7 @@ class Player
 
   def versus(winner, loser)
     game = Game.new(winner, loser)
-    game.finish
+    game.update_played_games
   end
 
   def wins_from(opponent)

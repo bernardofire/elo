@@ -1,12 +1,29 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Elo" do
-  describe Player do
-    describe 'Playing' do
-      p1 = Player.new
-      p2 = Player.new
-      p1.wins_from  p2
+  describe Ratings do
+    before(:each) do
+      @p1 = Player.new
+      @p2 = Player.new
     end
+    it 'expected' do
+      ratings = Ratings.new(@p1, @p2)
+
+      expected_p1 = ratings.expected(@p1, @p2)
+      expect(expected_p1).to eq(0.5)
+      expected_p2 = ratings.expected(@p2, @p1)
+      expect(expected_p2).to eq(0.5)
+
+      @p1.rating = 1400
+      @p2.rating = 800
+
+      expected_p1 = ratings.expected(@p2, @p1)
+      expect(expected_p1.to_s[0..3].to_f).to eq(0.96)
+      expected_p2 = ratings.expected(@p1, @p2)
+      expect(expected_p2.to_s[0..3].to_f).to eq(0.03)
+    end
+  end
+  describe Player do
     it 'should create player with default arguments' do
       p = Player.new
       expect(p.rating).to eq(1000)
@@ -50,10 +67,10 @@ describe "Elo" do
     end
   end
 
-  describe Game do
-    it '' do
-    end
-  end
+  #describe Game do
+  #  it '' do
+  #  end
+  #end
 
   describe Configuration do
     it 'should create configuration with default arguments' do
