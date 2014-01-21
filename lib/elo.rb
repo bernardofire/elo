@@ -9,7 +9,7 @@ class Player
 
   def versus(winner, loser)
     game = Game.new(winner, loser)
-    game.update_played_games
+    game.finish
   end
 
   def wins_from(opponent)
@@ -43,8 +43,8 @@ class Game
   end
 
   def finish
-    update_players_ratings
     update_played_games
+    update_players_ratings
   end
 
   #def draw?
@@ -86,23 +86,15 @@ class Rating
       @loser => loser }
   end
 
-  def loser
-    new_loser_rating
-  end
-
-  def winner
-    new_winner_rating
-  end
-
   def expected(first, second)
     1.0 / ( 1.0 + ( 10.0 ** ( ( first.rating - second.rating ) / 400.0 ) ) )
   end
 
-  def new_winner_rating
+  def winner
     @winner.rating + @winner.k_factor.to_f * ( 1.0 - expected(@loser, @winner) )
   end
 
-  def new_loser_rating
+  def loser
     @loser.rating + @loser.k_factor.to_f * ( 0.0 - expected(@winner, @loser) )
   end
 end

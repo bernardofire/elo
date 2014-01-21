@@ -8,12 +8,12 @@ describe "Elo" do
       @rating = Rating.new(@p1, @p2)
     end
 
-    it 'new_winner_rating' do
-      expect(@rating.new_winner_rating).to eq 1010.000
+    it 'winner' do
+      expect(@rating.winner).to eq 1010.000
     end
 
-    it 'new_lose_rating' do
-      expect(@rating.new_loser_rating).to eq 990.000
+    it 'loser' do
+      expect(@rating.loser).to eq 990.000
     end
 
     it 'expected' do
