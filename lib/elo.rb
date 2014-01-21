@@ -32,11 +32,6 @@ class Player
     @config.k_factor
   end
 
-  def played(game)
-    @rating = game.ratings[self].new_rating
-    @games << game
-    @pro = pro?
-  end
 end
 
 class Game
@@ -48,25 +43,27 @@ class Game
   end
 
   def finish
+    update_players_ratings
     update_played_games
-    update_ratings
   end
 
-  def draw?
+  #def draw?
+  #end
+
+  def update_players_ratings
+    new_ratings = Ratings.new(winner, loser).new_ratings
+    @winner.rating = new_ratings[:winner]
+    @loser.rating = new_ratings[:loser]
   end
 
-  def ratings
-    Ratings.new(winner, loser).new_ratings
-  end
-
-  def result=(result)
-    @result = result
-    update
-  end
+  #def result=(result)
+  #  @result = result
+  #  update
+  #end
 
   def update_played_games
-    one.played(self)
-    two.played(self)
+    @winner.games << self
+    @loser.games << self
   end
 end
 
@@ -77,7 +74,7 @@ class Configuration
     @initial_rating = 1000
     @beginner_start = 30
     @pro_start = 2400
-    @k_factor = 15
+    @k_factor = 20
   end
 end
 
@@ -90,20 +87,20 @@ class Ratings
   end
 
   def new_ratings
-    { :winner => winner(@winner),
-      :loser => loser(@loser) }
+    { @winner => winner,
+      @loser => loser }
   end
 
   def loser
-    new_loser_rating(@winner, @loser)
+    new_loser_rating
   end
 
   def winner
-    new_winner_rating(@winner, @loser)
+    new_winner_rating
   end
 
   def expected(first, second)
-    1.0 / ( 1.0 + ( 10.0 ** ( ( first.to_f - second.to_f ) / 400.0 ) ) )
+    1.0 / ( 1.0 + ( 10.0 ** ( ( first.rating - second.rating ) / 400.0 ) ) )
   end
 
   def new_winner_rating

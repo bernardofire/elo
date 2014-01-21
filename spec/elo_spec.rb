@@ -2,6 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Elo" do
   describe Player do
+    describe 'Playing' do
+      p1 = Player.new
+      p2 = Player.new
+      p1.wins_from  p2
+    end
     it 'should create player with default arguments' do
       p = Player.new
       expect(p.rating).to eq(1000)
@@ -56,7 +61,7 @@ describe "Elo" do
       expect(c.initial_rating).to eq(1000)
       expect(c.beginner_start).to eq(30)
       expect(c.pro_start).to eq(2400)
-      expect(c.k_factor).to eq(15)
+      expect(c.k_factor).to eq(20)
     end
   end
 end
