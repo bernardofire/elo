@@ -51,15 +51,10 @@ class Game
   #end
 
   def update_players_ratings
-    new_ratings = Ratings.new(winner, loser).new_ratings
+    new_ratings = Rating.new(winner, loser).new_ratings
     @winner.rating = new_ratings[:winner]
     @loser.rating = new_ratings[:loser]
   end
-
-  #def result=(result)
-  #  @result = result
-  #  update
-  #end
 
   def update_played_games
     @winner.games << self
@@ -78,7 +73,7 @@ class Configuration
   end
 end
 
-class Ratings
+class Rating
   attr_accessor :winner, :loser
 
   def initialize(winner, loser)
@@ -104,10 +99,10 @@ class Ratings
   end
 
   def new_winner_rating
-    @winner.k_factor.to_f * ( 1.0 - expected(@loser, @winner) )
+    @winner.rating + @winner.k_factor.to_f * ( 1.0 - expected(@loser, @winner) )
   end
 
   def new_loser_rating
-    @loser.k_factor.to_f * ( 0.0 - expected(@winner, @loser) )
+    @loser.rating + @loser.k_factor.to_f * ( 0.0 - expected(@winner, @loser) )
   end
 end

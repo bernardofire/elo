@@ -1,25 +1,33 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Elo" do
-  describe Ratings do
+  describe Rating do
     before(:each) do
       @p1 = Player.new
       @p2 = Player.new
+      @rating = Rating.new(@p1, @p2)
     end
-    it 'expected' do
-      ratings = Ratings.new(@p1, @p2)
 
-      expected_p1 = ratings.expected(@p1, @p2)
+    it 'new_winner_rating' do
+      expect(@rating.new_winner_rating).to eq 1010.000
+    end
+
+    it 'new_lose_rating' do
+      expect(@rating.new_loser_rating).to eq 990.000
+    end
+
+    it 'expected' do
+      expected_p1 = @rating.expected(@p1, @p2)
       expect(expected_p1).to eq(0.5)
-      expected_p2 = ratings.expected(@p2, @p1)
+      expected_p2 = @rating.expected(@p2, @p1)
       expect(expected_p2).to eq(0.5)
 
       @p1.rating = 1400
       @p2.rating = 800
 
-      expected_p1 = ratings.expected(@p2, @p1)
+      expected_p1 = @rating.expected(@p2, @p1)
       expect(expected_p1.to_s[0..3].to_f).to eq(0.96)
-      expected_p2 = ratings.expected(@p1, @p2)
+      expected_p2 = @rating.expected(@p1, @p2)
       expect(expected_p2.to_s[0..3].to_f).to eq(0.03)
     end
   end
