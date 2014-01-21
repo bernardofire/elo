@@ -12,6 +12,22 @@ describe "Elo" do
       expect(Player.new.k_factor).to eq(20)
     end
 
+    it 'win' do
+      player = Player.new
+      opponent = Player.new
+      player.wins_from opponent
+      expect(player.rating).to eq(1010.000)
+      expect(opponent.rating).to eq(990.000)
+    end
+
+    it 'lose' do
+      player = Player.new
+      opponent = Player.new
+      player.loses_to opponent
+      expect(player.rating).to eq(990.000)
+      expect(opponent.rating).to eq(1010.000)
+    end
+
     it 'beginner?' do
       p = Player.new
       expect(p.beginner?).to eq(true)
@@ -26,6 +42,11 @@ describe "Elo" do
       expect(p.pro?).to eq(true)
       p.rating = 2500
       expect(p.pro?).to eq(true)
+    end
+  end
+
+  describe Game do
+    it '' do
     end
   end
 
