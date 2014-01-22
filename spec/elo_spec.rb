@@ -49,7 +49,7 @@ describe "Elo" do
       expect(Player.new.k_factor).to eq(20)
     end
 
-    it 'win' do
+    it 'wins_from' do
       player = Player.new
       opponent = Player.new
       player.wins_from opponent
@@ -57,7 +57,7 @@ describe "Elo" do
       expect(opponent.rating).to eq(990.000)
     end
 
-    it 'lose' do
+    it 'loses_to' do
       player = Player.new
       opponent = Player.new
       player.loses_to opponent
