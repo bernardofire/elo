@@ -7,9 +7,13 @@ class Player
     @games = []
   end
 
-  def versus(winner, loser)
-    game = Game.new(winner, loser)
+  def versus(winner, loser, tie=false)
+    game = Game.new(winner, loser, tie)
     game.finish
+  end
+
+  def ties_with(opponent)
+    versus(self, opponent, true)
   end
 
   def wins_from(opponent)
