@@ -8,6 +8,13 @@ describe "Elo" do
       @rating = Rating.new(@p1, @p2)
     end
 
+    it 'new_ratings' do
+      new = @rating.new_ratings
+      expect(new.class).to eq Hash
+      expect(new[@p1]).to eq 1010.000
+      expect(new[@p2]).to eq 990.000
+    end
+
     it 'winner' do
       expect(@rating.winner).to eq 1010.000
     end
