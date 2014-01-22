@@ -81,6 +81,14 @@ describe "Elo" do
       expect(opponent.rating).to eq(1010.000)
     end
 
+    it 'ties_with' do
+      player = Player.new
+      opponent = Player.new
+      player.ties_with opponent
+      expect(player.rating).to eq(1000.000)
+      expect(opponent.rating).to eq(1000.000)
+    end
+
     it 'beginner?' do
       p = Player.new
       expect(p.beginner?).to eq(true)
