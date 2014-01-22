@@ -37,9 +37,10 @@ end
 class Game
   attr_accessor :winner, :loser, :result
 
-  def initialize(winner, loser)
+  def initialize(winner, loser, tie=false)
     @winner = winner
     @loser = loser
+    @tie = tie
   end
 
   def finish
@@ -47,11 +48,12 @@ class Game
     update_players_ratings
   end
 
-  #def draw?
-  #end
+  def tie?
+    @tie
+  end
 
   def update_players_ratings
-    new_ratings = Rating.new(winner, loser).new_ratings
+    new_ratings = Rating.new(winner, loser, @tie).new_ratings
     @winner.rating = new_ratings[@winner]
     @loser.rating = new_ratings[@loser]
   end
@@ -62,23 +64,13 @@ class Game
   end
 end
 
-class Configuration
-  attr_accessor :initial_rating, :beginner_start, :pro_start, :k_factor
-
-  def initialize
-    @initial_rating = 1000
-    @beginner_start = 30
-    @pro_start = 2400
-    @k_factor = 20
-  end
-end
-
 class Rating
   attr_accessor :winner, :loser
 
-  def initialize(winner, loser)
+  def initialize(winner, loser, tie=false)
     @winner = winner
     @loser = loser
+    @tie = tie
   end
 
   def new_ratings
@@ -91,10 +83,23 @@ class Rating
   end
 
   def winner
-    @winner.rating + @winner.k_factor.to_f * ( 1.0 - expected(@loser, @winner) )
+    result = (@tie && 0.5) || 1.0
+    @winner.rating + @winner.k_factor.to_f * ( result - expected(@loser, @winner) )
   end
 
   def loser
-    @loser.rating + @loser.k_factor.to_f * ( 0.0 - expected(@winner, @loser) )
+    result = (@tie && 0.5) || 0.0
+    @loser.rating + @loser.k_factor.to_f * ( result - expected(@winner, @loser) )
+  end
+end
+
+class Configuration
+  attr_accessor :initial_rating, :beginner_start, :pro_start, :k_factor
+
+  def initialize
+    @initial_rating = 1000
+    @beginner_start = 30
+    @pro_start = 2400
+    @k_factor = 20
   end
 end

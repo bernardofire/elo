@@ -94,6 +94,35 @@ describe "Elo" do
       expect(@game.loser).to eq @loser
     end
 
+    describe 'tie' do
+      @player_1 = Player.new
+      @player_2 = Player.new
+
+      it 'create' do
+        game = Game.new @player_1, @player_2, true
+        tie = game.instance_eval { @tie }
+        expect(tie).to eq true
+      end
+
+      it 'tie?' do
+        game = Game.new @player_1, @player_2, true
+        expect(game.tie?).to eq true
+      end
+
+      it 'update_players_ratings' do
+      @player_1 = Player.new; @player_2 = Player.new
+      game = Game.new @player_1, @player_2, true
+
+      expect(@player_1.rating).to eq 1000
+      expect(@player_2.rating).to eq 1000
+
+      game.update_players_ratings
+
+      expect(@player_1.rating).to eq 1000.000
+      expect(@player_2.rating).to eq 1000.000
+      end
+    end
+
     it 'update_played_games' do
       expect(@winner.games.size).to eq 0
       expect(@loser.games.size).to eq 0
