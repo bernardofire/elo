@@ -52,8 +52,8 @@ class Game
 
   def update_players_ratings
     new_ratings = Rating.new(winner, loser).new_ratings
-    @winner.rating = new_ratings[:winner]
-    @loser.rating = new_ratings[:loser]
+    @winner.rating = new_ratings[@winner]
+    @loser.rating = new_ratings[@loser]
   end
 
   def update_played_games
