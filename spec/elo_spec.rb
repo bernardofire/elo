@@ -8,6 +8,22 @@ describe "Elo" do
       @rating = Rating.new(@p1, @p2)
     end
 
+    describe 'tie' do
+      before :each do
+        @p1 = Player.new
+        @p2 = Player.new
+        @rating = Rating.new(@p1, @p2, true)
+      end
+
+      it 'winner' do
+        expect(@rating.winner).to eq 1000.000
+      end
+
+      it 'loser' do
+        expect(@rating.loser).to eq 1000.000
+      end
+    end
+
     it 'new_ratings' do
       new = @rating.new_ratings
       expect(new.class).to eq Hash
