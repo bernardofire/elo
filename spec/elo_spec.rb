@@ -82,10 +82,15 @@ describe "Elo" do
     end
   end
 
-  #describe Game do
-  #  it '' do
-  #  end
-  #end
+  describe Game do
+    it 'create' do
+      p1 = Player.new
+      p2 = Player.new
+      game = Game.new p1, p2
+      expect(@winner).to eq winner
+      expect(@loser).to eq loser
+    end
+  end
 
   describe Configuration do
     it 'should create configuration with default arguments' do
