@@ -83,12 +83,14 @@ describe "Elo" do
   end
 
   describe Game do
+    before :each do
+      @p1 = Player.new
+      @p2 = Player.new
+      @game = Game.new @p1, @p2
+    end
     it 'create' do
-      p1 = Player.new
-      p2 = Player.new
-      game = Game.new p1, p2
-      expect(@winner).to eq winner
-      expect(@loser).to eq loser
+      expect(@game.winner).to eq @p1
+      expect(@game.loser).to eq @p2
     end
   end
 
