@@ -39,7 +39,7 @@ describe "Elo" do
     end
   end
   describe Player do
-    it 'should create player with default arguments' do
+    it 'create player' do
       p = Player.new
       expect(p.rating).to eq(1000)
       expect(p.games).to eq([])
