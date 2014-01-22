@@ -108,6 +108,13 @@ describe "Elo" do
     end
 
     it 'update_players_ratings' do
+      expect(@winner.rating).to eq 1000
+      expect(@loser.rating).to eq 1000
+
+      @game.update_players_ratings
+
+      expect(@winner.rating).to eq 1010.000
+      expect(@loser.rating).to eq 990.000
     end
   end
 
